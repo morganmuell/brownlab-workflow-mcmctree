@@ -19,7 +19,7 @@ For this tutorial, we will be doing everything in PAML 4.8, which I will assume 
 ## Before the analysis
 Before you begin, you will need three files.
 1) Sequence file in phylip format
-2) Treefile #output from ML analysis
+2) Treefile output from ML analysis
 3) Control file 
 
 Your sequence file should be a concatenated matrix of all the UCEs you captured. This is the same sequence file you inputted into IQ-TREE for your maximum likelihood analysis.
