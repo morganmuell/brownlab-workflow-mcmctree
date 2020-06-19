@@ -234,7 +234,7 @@ Then, run the mcmctree command:
 ```
 mcmctree run0.ctl
 ```
-This should not take very long.
+This should take a few minutes.
 
 ### Step 2: Branch-length approximation
 Another major step MCMCTree takes to cut down on analysis time is approximating branch length values prior to running the MCMC chains. Here, the program will call on BASEML to calculate branch length approximations, which will then be inputted into your MCMCTree analyses alongside your sequence data and calibrated constraint tree. This step is the reason you put BASEML in your path.
@@ -264,7 +264,7 @@ Then, run it again!
 ```
 mcmctree run1.ctl
 ```
-This will also take a few days for a larger dataset.
+This run should take 10-15 minutes for this dataset, but like previous steps will also take a few days for a larger dataset.
 
 Once the analysis is complete, you should have a number of files, most notably of which are your outfile (whatever you named it), `mcmc.txt`, and a file called `Figtree.tre`. Your file `mcmc.txt` shows you the numerical values the MCMC chain sampled, and you will use data stored in this file to assess convergence. You do not need to wait to do run #2 to assess ESS values for convergence, in fact, you should check ESS values before potentially wasting time on run #2 to see if your run was long enough for run #1. See below. As for your `Figtree.tre` file, as suggested by the name, if inputted into Figtree you will see mean divergence time values at each node and 95% confidence interval error bars on each node. Raw values for mean node values and values for confidence intervals will also be at the bottom of the outfile. Your tree will look something like this.
 
@@ -331,4 +331,5 @@ And here is the citation for Santos et al. (2009) for our source of calibrations
 
 --ABSOLUTELY DO NOT run the last step without branch length approximation. Your analysis will never finish
 
---It's okay to use the full path name for the program if you're new to all this and struggling to put the program in your path, e.g., `~/Desktop/paml4.8/bin/mcmctree run1.ctl`, however it is still necessary to put BASEML in the path no matter what to run step 1
+--If you get `Abort trap: 6` this means the analysis did not completely finish. This is the problem I continued to experience with PAML version 4.9j. If you experience this even after you think you put PAML v4.8 in your path, type out the full name of the directory for mcmctree in PAML, e.g., `~/Desktop/paml4.8/bin/mcmctree run1.ctl`.
+
