@@ -80,7 +80,7 @@ We will only calibrate one node, at the common ancestor of *Ranitomeya* and its 
 
 If you average the three mean divergence times from Santos et al. (2009) for the node representing the common ancestor between *Ranitomeya* and *Andinobates*, you get an average mean of 12.651 million years ago. If you average the three standard deviations, you get an average standard deviation of 2.576 million years. Now, we can use those two values to calculate the boundaries of a 95% confidence interval, which come out to a minimum of 7.601 million years, and a maximum of 17.701 million years. We will use these values to set our calibration.
 
-The package `MCMCTreeR` will visualize our calibrations and write them to a new treefile. You could write in the calibration manually since we only have one calibration point, but it's easy to get confused about where to put it, so we're going to do it in R. There are lots of options for distribution shapes with this package (and distribution shapes are very important in calibration for determining the likelihood of an average straying from a prior), but I will just show you how to do the uniform distribution, which I chose to use for a couple reasons you can feel free to inquire with me about. That being said, [the guide] (https://github.com/PuttickMacroevolution/MCMCtreeR) to MCMCTreeR by Mark Puttick is very nice and has clear examples that show you how to look at other distribution shapes.
+The package `MCMCTreeR` will visualize our calibrations and write them to a new treefile. You could write in the calibration manually since we only have one calibration point, but it's easy to get confused about where to put it, so we're going to do it in R. There are lots of options for distribution shapes with this package (and distribution shapes are very important in calibration for determining the likelihood of an average straying from a prior), but I will just show you how to do the uniform distribution, which I chose to use for a couple reasons you can feel free to inquire with me about. That being said, [the guide](https://github.com/PuttickMacroevolution/MCMCtreeR) to MCMCTreeR by Mark Puttick is very nice and has clear examples that show you how to look at other distribution shapes.
 
 First, let's look at our input tree.
 ```
@@ -268,8 +268,7 @@ This run should take 10-15 minutes for this dataset, but like previous steps wil
 
 Once the analysis is complete, you should have a number of files, most notably of which are your outfile (whatever you named it), `mcmc.txt`, and a file called `Figtree.tre`. Your file `mcmc.txt` shows you the numerical values the MCMC chain sampled, and you will use data stored in this file to assess convergence. You do not need to wait to do run #2 to assess ESS values for convergence, in fact, you should check ESS values before potentially wasting time on run #2 to see if your run was long enough for run #1. See below. As for your `Figtree.tre` file, as suggested by the name, if inputted into Figtree you will see mean divergence time values at each node and 95% confidence interval error bars on each node. Raw values for mean node values and values for confidence intervals will also be at the bottom of the outfile. Your tree will look something like this.
 
-![figtree photo]
-(https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/run1.png)
+![figtree photo](https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/run1.png)
 
 OK, now do it again! Run number 2. You shouldn't need to make any adjustments in this control file; the same branch length estimates you calculated for run #1 also apply to run #2 because you are using the same sequence data.
 ```
@@ -288,8 +287,7 @@ This is quality control step #1. Here, we will take two measures to assess wheth
 
 First, we will look at both runs in Tracer. Open up Tracer and select `File -> Import trace file`. Then, select the file `mcmc.txt` in the run1 folder. You can visualize the values at which the mcmc chain sampled each node. Ideally, you want a "fuzzy caterpillar"  distribution, which shows your analysis was converging around a value. I prefer to use the fourth tab to visualize.
 
-![tracer]
-(https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/Tracer.png)
+![tracer](https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/Tracer.png)
 
 On the left panel you will see a different line for each node in the analysis and an ESS value (estimated sample size). This tells you how many times you MCMC chain sampled a certain value. Generally, ESS values are regarded as good if they are higher than 200, meaning that your analysis sampled that divergence time estimate for that node many times, giving you confidence the analysis converged on a value for that node. Scroll through each node to view the distribution, and check to see if they are above 200. Tracer will color code the values if your ESS at that node did not reach 200.
 
