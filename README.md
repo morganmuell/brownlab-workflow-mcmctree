@@ -89,8 +89,7 @@ nodelabels() #view node label numbers
 ```
 Execute both at once to produce a tree with node labels. Take note of the number that appears at our calibration node of interest. In this case, it is 11.
 
-![initial tree plot]
-(https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/frogtreeplot.png)
+![initial tree plot](https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/frogtreeplot.png)
 
 Next we'll make a few objects related to our calibration.
 ```
@@ -127,8 +126,7 @@ Remember that with brackets in R, we are denoting `[rows,columns]`. This plots t
 
 Now we can see the shape of the uniform distribution. There is no difference in weight between the bounds (both are hard boundaries, not soft boundaries), and the upper and lower bounds are in place with equal probability of any value in between (this is visually a bit coarse, but they are the appropriate boundaries of the plot).
 
-![uniform distribution]
-(https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/uniformdist.png)
+![uniform distribution](https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/uniformdist.png)
 
 If you're happy with the shape of your distribution, run the uniform distribution command again, and also tell it to write the tree to a text file.
 ```
