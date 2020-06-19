@@ -89,7 +89,8 @@ nodelabels() #view node label numbers
 ```
 Execute both at once to produce a tree with node labels. Take note of the number that appears at our calibration node of interest. In this case, it is 11.
 
-[put the plot in here]
+![initial tree plot]
+(https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/frogtreeplot.png)
 
 Next we'll make a few objects related to our calibration.
 ```
@@ -126,7 +127,8 @@ Remember that with brackets in R, we are denoting `[rows,columns]`. This plots t
 
 Now we can see the shape of the uniform distribution. There is no difference in weight between the bounds (both are hard boundaries, not soft boundaries), and the upper and lower bounds are in place with equal probability of any value in between (this is visually a bit coarse, but they are the appropriate boundaries of the plot).
 
-[put in plot result]
+![uniform distribution]
+(https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/uniformdist.png)
 
 If you're happy with the shape of your distribution, run the uniform distribution command again, and also tell it to write the tree to a text file.
 ```
@@ -268,7 +270,8 @@ This run should take 10-15 minutes for this dataset, but like previous steps wil
 
 Once the analysis is complete, you should have a number of files, most notably of which are your outfile (whatever you named it), `mcmc.txt`, and a file called `Figtree.tre`. Your file `mcmc.txt` shows you the numerical values the MCMC chain sampled, and you will use data stored in this file to assess convergence. You do not need to wait to do run #2 to assess ESS values for convergence, in fact, you should check ESS values before potentially wasting time on run #2 to see if your run was long enough for run #1. See below. As for your `Figtree.tre` file, as suggested by the name, if inputted into Figtree you will see mean divergence time values at each node and 95% confidence interval error bars on each node. Raw values for mean node values and values for confidence intervals will also be at the bottom of the outfile. Your tree will look something like this.
 
-[figtree photo]
+![figtree photo]
+(https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/run1.png)
 
 OK, now do it again! Run number 2. You shouldn't need to make any adjustments in this control file; the same branch length estimates you calculated for run #1 also apply to run #2 because you are using the same sequence data.
 ```
@@ -287,7 +290,8 @@ This is quality control step #1. Here, we will take two measures to assess wheth
 
 First, we will look at both runs in Tracer. Open up Tracer and select `File -> Import trace file`. Then, select the file `mcmc.txt` in the run1 folder. You can visualize the values at which the mcmc chain sampled each node. Ideally, you want a "fuzzy caterpillar"  distribution, which shows your analysis was converging around a value. I prefer to use the fourth tab to visualize.
 
-[input picture of tracer]
+![tracer]
+(https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/Tracer.png)
 
 On the left panel you will see a different line for each node in the analysis and an ESS value (estimated sample size). This tells you how many times you MCMC chain sampled a certain value. Generally, ESS values are regarded as good if they are higher than 200, meaning that your analysis sampled that divergence time estimate for that node many times, giving you confidence the analysis converged on a value for that node. Scroll through each node to view the distribution, and check to see if they are above 200. Tracer will color code the values if your ESS at that node did not reach 200.
 
