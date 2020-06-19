@@ -33,7 +33,7 @@ Each of these requires some prep prior to starting the analysis.
 ### Prepping the sequence file
 Here I have a sequence file for 9 samples of Ranitomeya and one Andinobates outgroup sample, comprised of a little less than 1200 loci and ~10,000 PIS.
 
-Your sequence file should be in phylip format (I don't believe PAML will accept Nexus files, though I could be hallucinating on that one). Your sequence file should already be in phylip format anyway if you're taking the sequence you used for IQ-TREE. 
+Your sequence file should be in phylip format, which shouldn't be an issue as the file should already be in phylip format anyway if you're taking the sequence you used for IQ-TREE. 
 
 The second thing you have to do with your sequence file is add spaces between the name of the sample and the beginning of the sequence. PAML requires sequence files to have at least 2 spaces in between the sample name and beginning of the sequence, which is not the default formatting for a phylip file. Your sequence file is probably too large to edit manually, and you've got better things to do with your time than that, so you can add these extra spaces with a simple line of code from the terminal on Bender before transferring the file over to the Mac.
 
@@ -139,8 +139,8 @@ Now, our tree has been calibrated and has branchlengths removed. You can now fin
 The control file has a lot of parts. We will only be adjusting some of them, so I will only describe those below. I would encourage you to understand the others using the PAML manual in case you think changing other parameters may aid in your analysis, though.
 ```
           seed = -12345 
-       seqfile = ../muscle-nexus-clean-70p_mk2_top75.phylip
-      treefile = ../calibrated_finalML_1176loci.treefile
+       seqfile = ../example-seq.phylip
+      treefile = ../calibrated_example.treefile
        outfile = out
 
          ndata = 0
@@ -189,7 +189,7 @@ I read in a guide that the `finetune` function is deprecated in recent versions 
 
 The bottom 3 parameters are incredibly important. You need to set up your analysis so that your `burnin` number matches 10% of the total number of generations of your analysis, just like any other Bayesian program. 
 
-To set these last three parameters, set `nsample` somewhere between 10,000 and 20,000 (I choose 20k usually). Determine how many iterations you want to run. Say I want to run 20,000,000 total iterations. Set the sampling frequency `sampfreq` equal to 20,000,000/`nsample`, which is in this case 1,000. Then, you set your `burnin` to 2,000,000, which is 10% of your total iterations. Now your analysis is set up to have the appropriate burn-in percentage and collect the right number of samples to match your total desired iterations. If your analysis does not converge, simply increase the total number of iterations, and adjust your sampfreq and burn-in values accordingly.
+To set these last three parameters, set `nsample` somewhere between 10,000 and 20,000 (I choose 20k usually). Determine how many iterations you want to run. Say I want to run 20,000,000 total iterations for this analysis. Set the sampling frequency `sampfreq` equal to 20,000,000/`nsample`, which is in this case 1,000. Then, you set your `burnin` to 2,000,000, which is 10% of your total iterations. Now your analysis is set up to have the appropriate burn-in percentage and collect the right number of samples to match your total desired iterations. If your analysis does not converge, simply increase the total number of iterations, and adjust your sampfreq and burn-in values accordingly.
 
 A common reason analyses do not converge is not running them for long enough. The solution to this is to extend the run so that the `burnin` is longer. You DON'T want to do this by increasing `nsample`, because you will just burn up your computer and not even progress much further into treespace. Don't do it. INSTEAD, increase the `sampfreq` and adjust your `burnin` value accordingly to 10% of the new total iterations that comes from changing your `sampfreq`  value.
 
@@ -249,7 +249,7 @@ Then, run the command!
 ```
 mcmctree run1.ctl
 ```
-This step will take awhile for a real dataset. For example, my Masters dataset with 1,176 loci and around 72k PIS for 67 taxa took about 4 days to run at 60 million iterations.
+This step will take awhile for a real dataset. For example, my Masters dataset that had 1,176 loci with around 72k PIS for 67 taxa took about 4 days to run at 60 million iterations.
 
 ### Step 3: MCMCTree
 Once step 2 is complete, you should have a file in the run1 folder called `out.BV`. Rename the file to `in.BV`.
@@ -266,7 +266,7 @@ mcmctree run1.ctl
 ```
 This run should take 10-15 minutes for this dataset, but like previous steps will also take a few days for a larger dataset.
 
-Once the analysis is complete, you should have a number of files, most notably of which are your outfile (whatever you named it), `mcmc.txt`, and a file called `Figtree.tre`. Your file `mcmc.txt` shows you the numerical values the MCMC chain sampled, and you will use data stored in this file to assess convergence. You do not need to wait to do run #2 to assess ESS values for convergence, in fact, you should check ESS values before potentially wasting time on run #2 to see if your run was long enough for run #1. See below. As for your `Figtree.tre` file, as suggested by the name, if inputted into Figtree you will see mean divergence time values at each node and 95% confidence interval error bars on each node. Raw values for mean node values and values for confidence intervals will also be at the bottom of the outfile. Your tree will look something like this.
+Once the analysis is complete, you should have a number of files, most notably of which are your outfile (whatever you named it, in this case I named it `out`), `mcmc.txt`, and a file called `Figtree.tre`. Your file `mcmc.txt` shows you the numerical values the MCMC chain sampled, and you will use data stored in this file to assess convergence. You do not need to wait to do run #2 to assess ESS values for convergence. In fact, you should check ESS values before potentially wasting time on run #2 to see if your run was long enough for run #1 (see convergence section below). As for your `Figtree.tre` file, as suggested by the name, if inputted into Figtree you will see mean divergence time values at each node and 95% confidence interval error bars on each node. Raw values for mean node values and values for confidence intervals will also be at the bottom of the outfile. Your tree will look something like this.
 
 ![figtree photo](https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/run1.png)
 
@@ -281,11 +281,11 @@ mcmctree run2.ctl
 You should see the same set of output files as with run #1, though the folder will not contain as many files because you didn't run the branch length approximation in this one.
 
 ### Checking for convergence
-This is quality control step #1. Here, we will take two measures to assess whether our values converged between the two MCMC chains. This is where you will find out how large a grain of salt you need to take your results with. Some results, like a single ESS value of 199 on one of 50 nodes, are pretty easy to take. Others, such as 20 out of 50 nodes with ESS values at 49 and two runs with high dissimilar mean node values, are so large that they resemble an icy asteroid of poor nodal support hurtling toward Bayesian Earth, thereby you cannot take them. Regardless of my understanding of how the take-with-a-grain-of-salt analogy works, the take-home message is that convergence is very important!! 
+This is quality control step #1. Here, we will take two measures to assess whether our values converged between the two MCMC chains. This is where you will find out whether you analyses definitively converged, or, how large a grain of salt you need to take your results with. Some results, like a single ESS value of 199 on one of 50 nodes, mean a grain of salt you can take and deal with. Others, such as 20 out of 50 nodes with ESS values at 49 and two runs with high dissimilar mean node values, mean a grain of salt so large it resembles an icy asteroid of poor nodal support hurtling toward Bayesian Earth, thereby you cannot take them at all. Regardless of my understanding of how the take-with-a-grain-of-salt analogy works, the take-home message is that convergence is **very important** and must be achieved! 
 
 #### Tracer
 
-First, we will look at both runs in Tracer. This will allow us to assess convergence at nodes within runs. Open up Tracer and select `File -> Import trace file`. Then, select the file `mcmc.txt` in the run1 folder. You can visualize the values at which the mcmc chain sampled each node. Ideally, you want a "fuzzy caterpillar"  distribution, which shows your analysis was converging around a value. I prefer to use the fourth tab to visualize.
+First, we will look at both runs in Tracer. This will allow us to assess convergence at each node within a run. Open up Tracer and select `File -> Import trace file`. Then, select the file `mcmc.txt` in the run1 folder. You can visualize the values at which the mcmc chain sampled each node. Ideally, you want a "fuzzy caterpillar"  distribution, which shows your analysis was converging around a value. I prefer to use the fourth tab to visualize.
 
 ![tracer](https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/Tracer.png)
 
@@ -299,7 +299,7 @@ If all your nodes had ESS values above 200 for both runs, that's fantastic! Then
 
 If you did have high enough ESS values, let's go to step 2 of assessing convergence. Here, we will compare average node values between run 1 and run 2 to make sure they match. I have also included an Excel document I already set up in the tutorial folder called convergence-check.xlsx. Open that up and there should be three tabs. Use control-a (or command-a) to select all of the values in `mcmc.txt` for run1 and paste them into the first tab. Repeat the same thing for the second tab with  mcmc.txt from run 2.
 
-Now go to the third tab. Here, you will see that the average node value for each node in (each column in the first two tabs) for run 1 and run 2. You can visually assess how similar those look in the scatter plot. If the plot shows a straight line when plotting the two columns against each other, you have achieved convergence because the mean values for run 1 and run 2 at each node (x and y values respectively in the plot) are approximately the same. I've also included a function to tell you the slope of the line to give you a different numerical feel for the similarity. The further the slope value is from 1, the more different your values were from each other, and the probable culprits for those differences can be identified by seeing which nodes did not have high enough ESS values on Tracer. It is okay if the values are not EXACTLY the same; decimal points will be off slightly. The important thing is how overall close they are.
+Now go to the third tab. Here, you will see that the average node value for each node in (each column in the first two tabs) for run 1 and run 2. You can visually assess how similar those look in the scatter plot. If the plot shows a straight line when plotting the two columns against each other, you have achieved convergence because the mean values for run 1 and run 2 at each node (x and y values respectively in the plot) are approximately the same. I've also included a function to tell you the slope of the line to give you a different numerical feel for the similarity. The further the slope value is from 1, the more different your values were from each other, and the probable culprits for those differences can be identified by seeing which nodes did not have high enough ESS values on Tracer. It is okay if the values are not EXACTLY the same; decimal points will probably be off slightly. The important thing is how overall close they are.
 
 You will have to adjust tab 3 with the averages for the number of nodes in your tree, but this sheet should give you an easy-to-follow skeleton for how to set that up and save you some time. The calculations are very simple.
 
@@ -309,8 +309,15 @@ I made the Excel step the second step because I didn't want hopes getting up wit
 
 Okay, so you've got your output treefiles, your analyses converged, and you are victorious! Here is one last thing to do.
 
-MCMCTree's default units entail that .12 means 12 million years, and outputs values as such. To change the values in your output treefiles to shifted over decimal points that better fit the timescale of the data we are working with, use the following in the search and replace function when you open text files of the treefiles:
+MCMCTree's default units entail that .12 means 12 million years, and outputs values as such. To change the values in your output treefiles to shifted over decimal points that better fit the timescale of the data we are working with, use the following two rounds in the search and replace function when you open text files of the treefiles:
 
+```
+Find: \d\.(\d\d)(\d+)
+Replace: \1.\2
+
+Find: 0(\d\.)
+Replace: \1
+```
 [put here]
 
 I hope this was helpful! If you have specific questions you think I might be able to answer, feel free to contact me at mrm0161@auburn.edu. Otherwise post in the PAML google group I linked at the top of the page, where a number of brilliant folks in the community, including Dr. Yang himself (the writer of PAML), may help you out faster and more concisely.
@@ -328,7 +335,7 @@ Santos, J.C., Coloma, L.A., Summers, K., Caldwell, J.P., Ree, R., Cannatella, D.
 
 ### Tips for Troubleshooting: A list of errors that commonly ruined my day
 
---If you are attempting to run Step 1 of the analysis with approximate branch length estimation, be 100% sure you set `usedata=3`, NOT `usedata=1`. No less than 3 times, I put 1 instead of 3 because my brain got confused that step 1 of the analysis meant inputting a 3. This results in a memory related error message (OOm), at least for large datasets. Don't be like me, don't do that.
+--If you are attempting to run Step 1 of the analysis with approximate branch length estimation, be 100% sure you set `usedata=3`, NOT `usedata=1`. I made this silly mistake several times because my brain got confused that step 1 of the analysis meant inputting a 3. This results in a memory related error message (OOm), at least for large datasets. Don't be like me, don't do that.
 
 --ABSOLUTELY DO NOT run the last step without branch length approximation. Your analysis will never finish
 
