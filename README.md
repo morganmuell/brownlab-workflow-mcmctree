@@ -283,9 +283,9 @@ You should see the same set of output files as with run #1, though the folder wi
 ### Checking for convergence
 This is quality control step #1. Here, we will take two measures to assess whether our values converged between the two MCMC chains. This is where you will find out how large a grain of salt you need to take your results with. Some results, like a single ESS value of 199 on one of 50 nodes, are pretty easy to take. Others, such as 20 out of 50 nodes with ESS values at 49 and two runs with high dissimilar mean node values, are so large that they resemble an icy asteroid of poor nodal support hurtling toward Bayesian Earth, thereby you cannot take them. Regardless of my understanding of how the take-with-a-grain-of-salt analogy works, the take-home message is that convergence is very important!! 
 
-#### Tracer -- assess convergence at nodes within runs
+#### Tracer
 
-First, we will look at both runs in Tracer. Open up Tracer and select `File -> Import trace file`. Then, select the file `mcmc.txt` in the run1 folder. You can visualize the values at which the mcmc chain sampled each node. Ideally, you want a "fuzzy caterpillar"  distribution, which shows your analysis was converging around a value. I prefer to use the fourth tab to visualize.
+First, we will look at both runs in Tracer. This will allow us to assess convergence at nodes within runs. Open up Tracer and select `File -> Import trace file`. Then, select the file `mcmc.txt` in the run1 folder. You can visualize the values at which the mcmc chain sampled each node. Ideally, you want a "fuzzy caterpillar"  distribution, which shows your analysis was converging around a value. I prefer to use the fourth tab to visualize.
 
 ![tracer](https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/Tracer.png)
 
@@ -295,9 +295,9 @@ Repeat this step for the mcmc.txt file in run2.
 
 If all your nodes had ESS values above 200 for both runs, that's fantastic! Then you can move to the second step to assess convergence described below. If they did not, extend the length of your analysis, dramatically if you must. Remember, change the sampling frequency, NOT the number of samples.
 
-#### Excel -- Compare values between run 1 and run 2
+#### Excel convergence check
 
-If you did have high enough ESS values, let's go to step 2 of assessing convergence. I have also included an Excel document I already set up in the tutorial folder called convergence-check.xlsx. Open that up and there should be three tabs. Use control-a (or command-a) to select all of the values in `mcmc.txt` for run1 and paste them into the first tab. Repeat the same thing for the second tab with  mcmc.txt from run 2.
+If you did have high enough ESS values, let's go to step 2 of assessing convergence. Here, we will compare average node values between run 1 and run 2 to make sure they match. I have also included an Excel document I already set up in the tutorial folder called convergence-check.xlsx. Open that up and there should be three tabs. Use control-a (or command-a) to select all of the values in `mcmc.txt` for run1 and paste them into the first tab. Repeat the same thing for the second tab with  mcmc.txt from run 2.
 
 Now go to the third tab. Here, you will see that the average node value for each node in (each column in the first two tabs) for run 1 and run 2. You can visually assess how similar those look in the scatter plot. If the plot shows a straight line when plotting the two columns against each other, you have achieved convergence because the mean values for run 1 and run 2 at each node (x and y values respectively in the plot) are approximately the same. I've also included a function to tell you the slope of the line to give you a different numerical feel for the similarity. The further the slope value is from 1, the more different your values were from each other, and the probable culprits for those differences can be identified by seeing which nodes did not have high enough ESS values on Tracer. It is okay if the values are not EXACTLY the same; decimal points will be off slightly. The important thing is how overall close they are.
 
@@ -319,11 +319,12 @@ I hope this was helpful! If you have specific questions you think I might be abl
 
 Putting this here just to be extra sure this program gets its credit. Here are recommended citations by the author:
 
-[put them in]
+Yang, Z. 2007. PAML 4: a program package for phylogenetic analysis by maximum likelihood.
+Molecular Biology and Evolution 24: 1586-1591
 
 And here is the citation for Santos et al. (2009) for our source of calibrations:
 
-[put it here]
+Santos, J.C., Coloma, L.A., Summers, K., Caldwell, J.P., Ree, R., Cannatella, D.C., 2009. Amazonian Amphibian Diversity Is Primarily Derived from Late Miocene Andean Lineages. PLoS Biology 7:e1000056. https://doi.org/10.1371/journal.pbio.1000056
 
 ### Tips for Troubleshooting: A list of errors that commonly ruined my day
 
