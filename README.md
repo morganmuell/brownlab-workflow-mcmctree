@@ -335,7 +335,7 @@ And here is the citation for Santos et al. (2009) for our source of calibrations
 
 Santos, J.C., Coloma, L.A., Summers, K., Caldwell, J.P., Ree, R., Cannatella, D.C., 2009. Amazonian Amphibian Diversity Is Primarily Derived from Late Miocene Andean Lineages. PLoS Biology 7:e1000056. https://doi.org/10.1371/journal.pbio.1000056
 
-### Tips for Troubleshooting: A list of errors that commonly ruined my day
+### Tips for Troubleshooting: A list of errors that occasionally ruined my day
 
 --If you are attempting to run Step 1 of the analysis with approximate branch length estimation, be 100% sure you set `usedata=3`, NOT `usedata=1`. I made this silly mistake several times because my brain got confused that step 1 of the analysis meant inputting a 3. This results in a memory related error message (OOm), at least for large datasets. Don't be like me, don't do that.
 
