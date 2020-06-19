@@ -41,7 +41,7 @@ The second thing you have to do with your sequence file is add spaces between th
 sed -r -i 's/(.*) (.*)/\1  \2/g' example-seq.phylip
 ```
 
-This tells the `sed` command to add two spaces in the file (which are above in between `\1` and `\2`) between the sample name and the beginning of the sequence.
+This tells the `sed` command to add two spaces in the file (which are above in between `\1` and `\2`) between the sample name and the beginning of the sequence. In the example-files folders, I have included a spaced and unspaced version of the sequence file for the tutorial. If you're doing all of this on the Mac, you can use the spaced file, but if you want to practice using the command, use the unspaced file.
 
 Now, your sequence file should be prepared. As always, do be 100% sure the names in your sequence file exactly match those in the treefile, but that should be done already if your treefile was produced using these sequence data.
 
