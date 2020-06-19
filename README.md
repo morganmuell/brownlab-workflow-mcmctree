@@ -280,6 +280,8 @@ You should see the same set of output files as with run #1, though the folder wi
 ### Checking for convergence
 This is quality control step #1. Here, we will take two measures to assess whether our values converged between the two MCMC chains. This is where you will find out how large a grain of salt you need to take your results with. Some results, like a single ESS value of 199 on one of 50 nodes, are pretty easy to take. Others, such as 20 out of 50 nodes with ESS values at 49 and two runs with high dissimilar mean node values, are so large that they resemble an icy asteroid of poor nodal support hurtling toward Bayesian Earth, thereby you cannot take them. Regardless of my understanding of how the take-with-a-grain-of-salt analogy works, the take-home message is that convergence is very important!! 
 
+#### Tracer -- assess convergence at nodes within runs
+
 First, we will look at both runs in Tracer. Open up Tracer and select `File -> Import trace file`. Then, select the file `mcmc.txt` in the run1 folder. You can visualize the values at which the mcmc chain sampled each node. Ideally, you want a "fuzzy caterpillar"  distribution, which shows your analysis was converging around a value. I prefer to use the fourth tab to visualize.
 
 [input picture of tracer]
@@ -289,6 +291,8 @@ On the left panel you will see a different line for each node in the analysis an
 Repeat this step for the mcmc.txt file in run2.
 
 If all your nodes had ESS values above 200 for both runs, that's fantastic! Then you can move to the second step to assess convergence described below. If they did not, extend the length of your analysis, dramatically if you must. Remember, change the sampling frequency, NOT the number of samples.
+
+#### Excel -- Compare values between run 1 and run 2
 
 If you did have high enough ESS values, let's go to step 2 of assessing convergence. I have also included an Excel document I already set up in the tutorial folder called convergence-check.xlsx. Open that up and there should be three tabs. Use control-a (or command-a) to select all of the values in `mcmc.txt` for run1 and paste them into the first tab. Repeat the same thing for the second tab with  mcmc.txt from run 2.
 
