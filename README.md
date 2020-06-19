@@ -18,9 +18,9 @@ For this tutorial, we will be doing everything in PAML 4.8, which I will assume 
 
 ## Before the analysis
 Before you begin, you will need three files.
-1) sequence file in phylip format
-2) treefile #output from ML analysis
-3) control file 
+1) Sequence file in phylip format
+2) Treefile #output from ML analysis
+3) Control file 
 
 Your sequence file should be a concatenated matrix of all the UCEs you captured. This is the same sequence file you inputted into IQ-TREE for your maximum likelihood analysis.
 
@@ -50,8 +50,8 @@ Here I have a rooted tree. This is the output of a maximum likelihood analysis t
 
 To prepare your treefile you need to do the following in R:
 
-1) remove branchlengths
-2) add calibration point(s) 
+1) Remove branchlengths
+2) Add calibration point(s) 
 
 #### Step 1: removing branch lengths
 We need to remove the branchlengths from our maximum likelihood tree. MCMCTree requires input topologies not to have any branch lengths in the file, because we will calculate branch lengths prior to the MCMCTree analysis.
@@ -109,7 +109,10 @@ uniform_results <- estimateBound(minAge = MinTime, maxAge = MaxTime,
 
 uniform_results$parameters 
 ```
-[put in results of uniform parameters]
+```
+            tL      tU    pL    pU
+node_1 0.07601 0.17701 0.025 0.025
+```
 
 In the uniform distribution, tL is the lower bound and tU is the upper bound. pL and pU are the probabilities of the lower and upper bounds being violated, with default values of 0.025.
 
@@ -127,8 +130,8 @@ Now we can see the shape of the uniform distribution. There is no difference in 
 
 If you're happy with the shape of your distribution, run the uniform distribution command again, and also tell it to write the tree to a text file.
 ```
-uniform_results <- estimateBound(minAge = MinTime, maxAge = MaxTime, monoGroups = MonoGroup, phy = frogtree, plot = FALSE, 
-                                 writeMCMCtree=TRUE, MCMCtreeName='calibrated_example.treefile')
+uniform_results <- estimateBound(minAge = MinTime, maxAge = MaxTime, monoGroups = MonoGroup, phy = frogtree, 
+                                  plot = FALSE, writeMCMCtree=TRUE, MCMCtreeName='calibrated_example.treefile')
 ```
 Now, our tree has been calibrated and has branchlengths removed. You can now find it in your working directory.
 
