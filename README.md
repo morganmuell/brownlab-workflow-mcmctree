@@ -2,11 +2,17 @@
 Tutorial for using MCMCTree in the PAML package as implemented by the Brown Lab at SIUC. For divergence time estimation on UCE datasets, most geared toward data from dendrobatid frogs.
 
 Here I will give a brief tutorial into using MCMCTree for divergence time estimation in dendrobatid frogs. If you haven't yet obtained a maximum likelihood tree for your dataset, you can learn how to do so using Wilson's tutorial on the other parts of the Brown Lab pipeline [here](https://github.com/wxguillo/brownlab-workflow). We'll use example data to walk through prepping files for analysis and running the actual analysis. PAML is set up on the lab Mac, so we'll walk through as such, though everything should apply to any system. This also isn't a comprehensive deep dive into all of MCMCTree's features, so if you want to adjust more parameters or need help with something not covered in this tutorial, here are some great resources I used to learn the program:
+
 [PAML website](http://abacus.gene.ucl.ac.uk/software/paml.html)
+
 [PAML user manual](http://abacus.gene.ucl.ac.uk/software/pamlDOC.pdf)
+
 [Jun Inoue tutorial](http://www.fish-evol.org/mcmctreeExampleVert6/text1Eng.html)
+
 [Mario dos Reis tutorial](http://abacus.gene.ucl.ac.uk/software/MCMCtree.Tutorials.pdf)
+
 [PAML Google group](https://groups.google.com/forum/#!forum/pamlsoftware)
+
 
 For this tutorial, we will be doing everything in PAML 4.8, which I will assume you already have installed (if not, there are easy instructions on the PAML website). This is not the most current version, which is 4.9j, but I was unable to get 4.9j to work because I found it would abort the MCMCTree run just before the end and fail to produce a treefile with confidence intervals. If a new version comes out I would highly encourage you to give that a try to see if this issue has been debugged, since it's always better to use the most up-to-date packages, or even give 4.9j a try on your own (all aspects of this tutorial will remain the same). You will also need R handy for parts of this tutorial.
 
