@@ -289,7 +289,7 @@ First, we will look at both runs in Tracer. This will allow us to assess converg
 
 ![tracer](https://github.com/morganmuell/brownlab-workflow-mcmctree/blob/master/images/Tracer.png)
 
-On the left panel you will see a different line for each node in the analysis and an ESS value (estimated sample size). This tells you how many times you MCMC chain sampled a certain value. Generally, ESS values are regarded as good if they are higher than 200, meaning that your analysis sampled that divergence time estimate for that node many times, giving you confidence the analysis converged on a value for that node. Scroll through each node to view the distribution, and check to see if they are above 200. Tracer will color code the values if your ESS at that node did not reach 200.
+On the left panel you will see a different line for each node in the analysis and an ESS value (estimated sample size). This tells you how many times you MCMC chain sampled a certain value. Generally, ESS values are regarded as good if they are higher than 200, meaning that your analysis sampled that divergence time estimate for that node many times, giving you confidence the analysis converged on a value for that node. Scroll through each node to view the distribution, and check to see if they are above 200. Tracer will color code the values if your ESS at that node did not reach 200. This run went well, as seen by the ESS values far above 200.
 
 Repeat this step for the mcmc.txt file in run2.
 
