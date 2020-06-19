@@ -35,7 +35,7 @@ Here I have a sequence file for 9 samples of Ranitomeya and one Andinobates outg
 
 Your sequence file should be in phylip format (I don't believe PAML will accept Nexus files, though I could be hallucinating on that one). Your sequence file should already be in phylip format anyway if you're taking the sequence you used for IQ-TREE. 
 
-The second thing you have to do with your sequence file is add spaces between the name of the sample and the beginning of the sequence. PAML requires sequence files to have at least 2 spaces in between the sample name and beginning of the sequence, which is not the default formatting for a phylip file. Your sequence file is probably too large to edit manually, and you've got better things to do with your time than that, so you can add these extra spaces with a simple line of code from the terminal.
+The second thing you have to do with your sequence file is add spaces between the name of the sample and the beginning of the sequence. PAML requires sequence files to have at least 2 spaces in between the sample name and beginning of the sequence, which is not the default formatting for a phylip file. Your sequence file is probably too large to edit manually, and you've got better things to do with your time than that, so you can add these extra spaces with a simple line of code from the terminal on Bender before transferring the file over to the Mac.
 
 ```
 sed -r -i 's/(.*) (.*)/\1  \2/g' example-seq.phylip
